@@ -31,10 +31,10 @@
         <div class="form-control messages_display"></div>
         <br/>
         <div class="form-group">
-            <input type="text" class="input_name form-control" placeholder="Uw naam"/>
+            <input aria-label="Naam" type="text" class="input_name form-control" placeholder="Uw naam"/>
         </div>
         <div class="form-group">
-            <textarea class="input_message form-control" placeholder="Bericht" rows="5"></textarea>
+            <textarea aria-label="Bericht" class="input_message form-control" placeholder="Bericht" rows="5"></textarea>
         </div>
         <div class="form-group input_send_holder">
             <input type="submit" value="Verstuur" class="btn btn-primary btn-block input_send"/>
@@ -53,15 +53,16 @@
 <script src="//js.pusher.com/4.1/pusher.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js" type="text/javascript"></script>
 
+<!--suppress EqualityComparisonWithCoercionJS -->
 <script type="text/javascript">
     // Add API Key & cluster here to make the connection
-    var pusher = new Pusher('8110a839b449bef0d6be', {
+    const pusher = new Pusher('8110a839b449bef0d6be', {
         cluster: 'eu',
         encrypted: true
     });
 
     // Enter a unique channel you wish your users to be subscribed in.
-    var channel = pusher.subscribe('test_channel');
+    const channel = pusher.subscribe('test_channel');
     // bind the server event to get the response data and append it to the message div
     channel.bind('my_event',
         function (data) {
@@ -95,7 +96,7 @@
     $.fn.enterKey = function (fnc) {
         return this.each(function () {
             $(this).keypress(function (ev) {
-                var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                const keycode = (ev.keyCode ? ev.keyCode : ev.which);
                 if (keycode == '13') {
                     fnc.call(this, ev);
                 }
@@ -106,14 +107,14 @@
     // Send the Message enter by User
     $('body').on('click', '.chat_box .input_send', function (e) {
         e.preventDefault();
-        var message = $('.chat_box .input_message').val();
-        var name = $('.chat_box .input_name').val();
+        const message = $('.chat_box .input_message').val();
+        const name = $('.chat_box .input_name').val();
         // Validate Name field
         if (name === '') {
             bootbox.alert('<br /><p class="bg-danger">Please enter a Name.</p>');
         } else if (message !== '') {
             // Define ajax data
-            var chat_message = {
+            const chat_message = {
                 name: $('.chat_box .input_name').val(),
                 message: '<strong>' + $('.chat_box .input_name').val() + '</strong>: ' + message
             };
