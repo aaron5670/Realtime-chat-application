@@ -70,6 +70,7 @@
             $('.input_send_holder').html('<input type="submit" value="Verstuur" class="btn btn-primary btn-block input_send" />');
             $(".messages_display").scrollTop($(".messages_display")[0].scrollHeight);
         });
+
     // check if the user is subscribed to the above channel
     channel.bind('pusher:subscription_succeeded', function (members) {
         console.log('successfully subscribed!');
@@ -115,7 +116,7 @@
             var chat_message = {
                 name: $('.chat_box .input_name').val(),
                 message: '<strong>' + $('.chat_box .input_name').val() + '</strong>: ' + message
-            }
+            };
             //console.log(chat_message);
             // Send the message to the server passing File Url and chat person name & message
             ajaxCall('https://chat.aaronvandenberg.nl/message.php', chat_message);
@@ -125,6 +126,7 @@
             $('.input_send_holder').html('<input type="submit" value="Verstuur" class="btn btn-primary btn-block" disabled /> &nbsp;<img src="loading.gif" alt="loading gif" width="75" />');
         }
     });
+
     // Send the message when enter key is clicked
     $('.chat_box .input_message').enterKey(function (e) {
         e.preventDefault();
