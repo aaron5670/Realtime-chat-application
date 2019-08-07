@@ -2,7 +2,7 @@
 Realtime chat application build with Pusher
 
 My first project build with Pusher.
-See https://chat.aaronvandenberg.nl/
+See [live example](https://chat.aaronvandenberg.nl/ "Live example").
 
 ### How to install
 1. Clone the repository
