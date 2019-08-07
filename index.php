@@ -1,3 +1,8 @@
+<?php
+//Require pusher config
+$config  = require __DIR__ . '/config.php';
+?>
+
 <!doctype html>
 <html lang="nl">
 <head>
@@ -56,7 +61,7 @@
 <!--suppress EqualityComparisonWithCoercionJS -->
 <script type="text/javascript">
     // Add API Key & cluster here to make the connection
-    const pusher = new Pusher('8110a839b449bef0d6be', {
+    const pusher = new Pusher('<?= $config['auth_key'] ?>', {
         cluster: 'eu',
         encrypted: true
     });
@@ -120,7 +125,7 @@
             };
             //console.log(chat_message);
             // Send the message to the server passing File Url and chat person name & message
-            ajaxCall('https://chat.aaronvandenberg.nl/message.php', chat_message);
+            ajaxCall('<?= $config['site_url'] ?>' + 'message.php', chat_message);
             // Clear the message input field
             $('.chat_box .input_message').val('');
             // Show a loading image while sending
