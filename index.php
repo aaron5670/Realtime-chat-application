@@ -68,6 +68,7 @@ $config  = require __DIR__ . '/config.php';
 
     // Enter a unique channel you wish your users to be subscribed in.
     const channel = pusher.subscribe('test_channel');
+
     // bind the server event to get the response data and append it to the message div
     channel.bind('my_event',
         function (data) {
@@ -77,8 +78,17 @@ $config  = require __DIR__ . '/config.php';
             $(".messages_display").scrollTop($(".messages_display")[0].scrollHeight);
         });
 
+    // bind the server event to get the response data and append it to the message div
+    channel.bind('admin_event',
+        function (data) {
+            bootbox.alert('<h3>Admin message</h3><hr><br /><p>' + data + '</p>');
+            $('.messages_display').append('<p class="message_item" style="color:red;">' + data + '</p>');
+            $('.input_send_holder').html('<input type="submit" value="Verstuur" class="btn btn-primary btn-block input_send" />');
+            $(".messages_display").scrollTop($(".messages_display")[0].scrollHeight);
+        });
+
     // check if the user is subscribed to the above channel
-    channel.bind('pusher:subscription_succeeded', function (members) {
+    channel.bind('pusher:subscription_succeeded', function () {
         console.log('successfully subscribed!');
     });
 
@@ -87,7 +97,7 @@ $config  = require __DIR__ . '/config.php';
         $.ajax({
             type: "POST",
             url: ajax_url,
-            //dataType: "json",
+            dataType: "json",
             data: ajax_data,
             success: function (response) {
                 console.log(response);
@@ -114,9 +124,10 @@ $config  = require __DIR__ . '/config.php';
         e.preventDefault();
         const message = $('.chat_box .input_message').val();
         const name = $('.chat_box .input_name').val();
+
         // Validate Name field
         if (name === '') {
-            bootbox.alert('<br /><p class="bg-danger">Please enter a Name.</p>');
+            bootbox.alert('<br /><p class="bg-danger">Voer een naam in!</p>');
         } else if (message !== '') {
             // Define ajax data
             const chat_message = {
